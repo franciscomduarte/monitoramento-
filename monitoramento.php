@@ -28,7 +28,7 @@ $dados = $alerta->listarAtivos($site['site']);
 
 if($dados) {
     $telegram = new Telegram();
-    $telegram->enviaAlerta("ALERTA! " . $dados->site . " fora do ar! <a href='http://www.localhost:83/monitoramento/desativarAlerta.php?id_configuracao=1'> Clique aqui para desativar o alerta por 30 minutos </a>", $id_chat);
+    $telegram->enviaAlerta("ALERTA! " . $dados->site . " fora do ar! <a href='http://monitoramento.e2f.com.br/desativarAlerta.php?id_configuracao=1'> Clique aqui para desativar o alerta por 30 minutos </a>", $id_chat);
     $alerta->atualizarStatus($dados);
 }
 
