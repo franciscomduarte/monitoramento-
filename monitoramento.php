@@ -4,37 +4,55 @@ include 'Telegram.php';
 include 'Alerta.php';
 include 'conexao.php';
 
+date_default_timezone_set('America/Sao_Paulo');
+
+$alerta = new Alerta();
+$sites_monitorados = $alerta->listarConfiguracoesSite();
+
+foreach ($sites_monitorados as $site) {
+    $status = pingAddress($site['site']);
+    if($status != 0 && $site['data_hora_envio'] < date('Y-m-d H:i')) {
+        $alerta = new Alerta();
+        $alerta->mensagem = "Alerta! " . $site['site'] . " fora do ar.";
+        $alerta->site = $site['site'];
+        $alerta->dataEnvio =  date('Y-m-d H:i');
+        $alerta->status = 0;
+        $alerta->inserir($alerta);
+    }
+}
+
+// Lógica para enviar a mensagem
+$id_chat = getIdTelegramChat();
+
+$dados = $alerta->listarAtivos($site['site']);
+
+if($dados) {
+    $telegram = new Telegram();
+    $telegram->enviaAlerta("ALERTA! " . $dados->site . " fora do ar! <a href='http://www.localhost:83/monitoramento/desativarAlerta.php?id_configuracao=1'> Clique aqui para desativar o alerta por 30 minutos </a>", $id_chat);
+    $alerta->atualizarStatus($dados);
+}
 
 function pingAddress($ip) {
     $pingresult = exec("ping  -n 3 $ip", $outcome, $status);
     return $status;
 }
 
-
-$url = 'https://api.telegram.org/bot632066585:AAGx-dsUR2cae1CPWxfpZNEKaFAVntRP_Fg/getUpdates';
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_USERPWD, 'usuario:senha');
-curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-$data = json_decode(curl_exec($ch),true); 	// <== Aqui
-
-curl_close($ch);
-
-$resultado = ($data['result'])[0];
-$mensagem = $resultado['message'];
-$chat = $mensagem['chat'];
-$id_chat = $chat['id'];
-
-$telegram = new Telegram();
-$status = pingAddress("www.escolavirtual.gov.br");
-if($status != 0) {
-    $telegram->enviaAlerta("ALERTA! A EVG fora do ar!", $id_chat);
+function getIdTelegramChat() {
+    $ch = curl_init(URL_CHAT_ID);
+    curl_setopt($ch, CURLOPT_USERPWD, 'usuario:senha');
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    
+    $data = json_decode(curl_exec($ch),true); 	// <== Aqui
+    
+    curl_close($ch);
+    
+    $resultado = ($data['result'])[0];
+    $mensagem = $resultado['message'];
+    $chat = $mensagem['chat'];
+    $id_chat = $chat['id'];
+    return $id_chat;
 }
 
-$statusMooc = pingAddress("mooc.escolavirtual.gov.br");
-if($statusMooc != 0) {
-    $telegram->enviaAlerta("ALERTA! O Mooc fora do ar! <a href='www.goggle.com'>Clique aqui</a>", $id_chat);
-}
 ?>

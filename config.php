@@ -17,25 +17,17 @@ define('AMBIENTE','DEV');
 define('CHAT_ID', '-362312713');
 define('TOKEN_TELEGRAM', '632066585:AAGx-dsUR2cae1CPWxfpZNEKaFAVntRP_Fg');
 define('URL_TELEGRAM', 'https://api.telegram.org/bot');
+define('URL_CHAT_ID', 'https://api.telegram.org/bot632066585:AAGx-dsUR2cae1CPWxfpZNEKaFAVntRP_Fg/getUpdates');
 
 ########################################################################
 ## PARAMENTROS DO BANCO DE DADOS
 ########################################################################
 
-$ip = getenv("REMOTE_ADDR");
-if($ip == '127.0.0.1' && AMBIENTE == "DEV") {
     define('HOST', 'localhost');
     define('DBNAME', 'e2f10');
     define('CHARSET', 'utf8');
     define('USER', 'root');
     define('PASSWORD', '');
-} else {
-    define('HOST', 'mysql.e2f.com.br');
-    define('DBNAME', 'e2f10');
-    define('CHARSET', 'utf8');
-    define('USER', 'e2f10');
-    define('PASSWORD', 'e2f12345678');
-}
 
 
 ?>

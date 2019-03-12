@@ -1,7 +1,5 @@
 <?php
     
-include 'config.php';
-
     class Telegram
     {
         public function enviaAlerta($mensagem, $chat_id) {
