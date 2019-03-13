@@ -39,20 +39,24 @@ function pingAddress($ip) {
 }
 
 function getIdTelegramChat() {
-    $ch = curl_init(URL_CHAT_ID);
-    curl_setopt($ch, CURLOPT_USERPWD, 'usuario:senha');
+    $ch = curl_init("https://api.telegram.org/bot632066585:AAGx-dsUR2cae1CPWxfpZNEKaFAVntRP_Fg/getUpdates");
     curl_setopt($ch, CURLOPT_TIMEOUT, 5);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     
     $data = json_decode(curl_exec($ch),true); 	// <== Aqui
     
-    curl_close($ch);
+    if(($data['result'])[0] != null) {
+        $resultado = ($data['result'])[0];
+        $mensagem = $resultado['message'];
+        $chat = $mensagem['chat'];
+        $id_chat = $chat['id'];
+    } else {
+        $alerta = new Alerta();
+        $id_chat = ($alerta->getIdChat())['valor'];
+    }
     
-    $resultado = ($data['result'])[0];
-    $mensagem = $resultado['message'];
-    $chat = $mensagem['chat'];
-    $id_chat = $chat['id'];
+    curl_close($ch);
     return $id_chat;
 }
 

@@ -94,6 +94,12 @@ class Alerta extends Base
                 WHERE id = '$obj->id' ";
         return executarSql($sql);
     }
+    
+    public function getIdChat(){
+        $sql = "SELECT * FROM configuracao_sistema WHERE 1=1 and descricao = 'telegram_chat_id'";
+        $query = executarSql($sql);
+        return $query->fetch_assoc();
+    }
 
     public function listarPorId($id)
     {}
