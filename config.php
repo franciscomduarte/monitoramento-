@@ -23,11 +23,11 @@ define('URL_CHAT_ID', 'https://api.telegram.org/bot632066585:AAGx-dsUR2cae1CPWxf
 ## PARAMENTROS DO BANCO DE DADOS
 ########################################################################
 
-    define('HOST', 'localhost');
-    define('DBNAME', 'e2f10');
+    define('HOST', 'mysql.e2f.com.br');
+    define('DBNAME', 'monitoramento');
     define('CHARSET', 'utf8');
-    define('USER', 'root');
-    define('PASSWORD', '');
+    define('USER', 'e2f10');
+    define('PASSWORD', 'e2f12345678');
 
 
 ?>
