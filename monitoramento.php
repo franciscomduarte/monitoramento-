@@ -5,6 +5,7 @@ include 'Alerta.php';
 include 'conexao.php';
 
 date_default_timezone_set('America/Sao_Paulo');
+error_reporting(E_ALL);
 
 $alerta = new Alerta();
 $sites_monitorados = $alerta->listarConfiguracoesSite();
