@@ -8,7 +8,6 @@ include 'Alerta.php';
 include 'conexao.php';
 
 
-
 echo "INICIO DO ALERTA";
 $alerta = new Alerta();
 $sites_monitorados = $alerta->listarConfiguracoesSite();
