@@ -1,11 +1,13 @@
 <?php 
 
+date_default_timezone_set('America/Sao_Paulo');
+error_reporting(E_ALL);
+
 include 'Telegram.php';
 include 'Alerta.php';
 include 'conexao.php';
 
-date_default_timezone_set('America/Sao_Paulo');
-error_reporting(E_ALL);
+
 
 echo "INICIO DO ALERTA";
 $alerta = new Alerta();
