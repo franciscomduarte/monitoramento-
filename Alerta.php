@@ -37,7 +37,7 @@ class Alerta extends Base
     {
         echo $sql   = "SELECT * FROM configuracao_alerta WHERE 1=1";
         $query = executarSql($sql);
-        return $this->array = $query->fetch_all(MYSQLI_ASSOC);
+        return $query->fetch_all(MYSQLI_ASSOC);
     }
 
     public function listarAtivos($site)
