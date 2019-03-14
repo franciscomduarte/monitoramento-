@@ -18,7 +18,7 @@ class Alerta extends Base
     public function inserir($obj)
     {
         
-        $sql = "INSERT INTO ".$this->tabela." (id, status, site, mensagem, data_envio)
+        echo $sql = "INSERT INTO ".$this->tabela." (id, status, site, mensagem, data_envio)
 				             VALUES (null, '$obj->status', '$obj->site', '$obj->mensagem', now())";
         
         return executarSql($sql);
@@ -38,17 +38,6 @@ class Alerta extends Base
         $sql   = "SELECT * FROM configuracao_alerta WHERE 1=1";
         $query = executarSql($sql);
         return $this->array = $query->fetch_all(MYSQLI_ASSOC);
-        
-//         $configuracoes = [];
-        
-//         foreach ($this->array as $linha) {
-//             $alerta = new ConfiguracaoAlerta();
-//             $alerta->id             = $linha['id'];
-//             $alerta->site           = $linha['site'];
-//             $alerta->dataHoraEnvio  = $linha['data_hora_envio'];
-//             $configuracoes[] = $alerta;
-//         }
-//         return $configuracoes;
     }
 
     public function listarAtivos($site)
