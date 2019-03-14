@@ -9,8 +9,10 @@ include 'conexao.php';
 
 
 echo "INICIO DO ALERTA";
+echo "<br>";
 $alerta = new Alerta();
 $sites_monitorados = $alerta->listarConfiguracoesSite();
+echo "<br>";
 
 echo date('Y-m-d H:i');
 
