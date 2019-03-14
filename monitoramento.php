@@ -12,8 +12,15 @@ echo "INICIO DO ALERTA";
 $alerta = new Alerta();
 $sites_monitorados = $alerta->listarConfiguracoesSite();
 
+echo date('Y-m-d H:i');
+
+echo "<br>";
+
 foreach ($sites_monitorados as $site) {
     $status = pingAddress($site['site']);
+    
+    echo $site['data_hora_envio'];
+    
     if($status != 0 && $site['data_hora_envio'] < date('Y-m-d H:i')) {
         $alerta = new Alerta();
         $alerta->mensagem = "Alerta! " . $site['site'] . " fora do ar.";
