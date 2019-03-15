@@ -35,7 +35,7 @@ class Alerta extends Base
     
     public function listarConfiguracoesSite()
     {
-        echo $sql   = "SELECT * FROM configuracao_alerta WHERE 1=1";
+        echo $sql   = " SELECT * FROM configuracao_alerta ";
         $query = executarSql($sql);
         return $query->fetch_all(MYSQLI_ASSOC);
     }
