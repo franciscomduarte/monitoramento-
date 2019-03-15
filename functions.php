@@ -176,8 +176,8 @@
 		
 		$result = $mysqli->query($sql);
 		if ($mysqli->errno) { 
-			$mensagem = "MySQL error:". trim(addslashes($mysqli->errno)) .":". trim(addslashes($mysqli->error));
-			aprensentaMensagem(ERROR, $mensagem);
+			echo $mensagem = "MySQL error:". trim(addslashes($mysqli->errno)) .":". trim(addslashes($mysqli->error));
+			//aprensentaMensagem(ERROR, $mensagem);
 			return $mysqli;
 			//TODO criar rotina para salvar os erros sql numa tabela
 // 			exit();
