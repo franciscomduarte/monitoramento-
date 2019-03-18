@@ -5,10 +5,26 @@
 * Esse arquivo sera incluido aonde for necessario a utilizacao de conexao com o
 * banco de dados.
 */
-include 'config.php';
+define('AMBIENTE','DEV');
+
+if(AMBIENTE == "DEV") {
+    define('HOST', 'localhost');
+    define('DBNAME', 'monitoramento');
+    define('CHARSET', 'utf8');
+    define('USER', 'root');
+    define('PASSWORD', '');
+} else {
+    define('HOST', 'mysql.e2f.com.br');
+    define('DBNAME', 'monitoramento');
+    define('CHARSET', 'utf8');
+    define('USER', 'e2f10');
+    define('PASSWORD', 'e2f12345678');
+}
 
 class Conexao {
-	
+
+    
+    
 	private static $mysqli;
 	
 	private function __construct() {
